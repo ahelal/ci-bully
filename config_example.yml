@@ -1,12 +1,3 @@
-# CI Bully
-
-CI bully is a go program that will warn and close github PRs that are long living. You can define the actions in the configuration.
-Ideally we want to developers to avoid using long living branches.
-
-It is better to run PR bully from a CI daily as PR bully does not keep state.
-
-## Config
-```yaml
 ---
 ## Define the token in yaml or environment variable "GITHUB_TOKEN"
 #token: "XxxXXXXxxxx"
@@ -41,4 +32,3 @@ repos:
  - "ahelal/avm"
  - "ahelal/t-template"
  - "ahelal/ansible-concourse"
-```
