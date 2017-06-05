@@ -33,19 +33,23 @@ func actions(currentPr prType) {
 			break
 		}
 	}
-	if takeAction {
-		if arguments["--enable"].(bool) {
-			commentOnPr(currentPr, actionTaken.Message)
-			if actionTaken.Action == "close" {
-				closePr(currentPr)
-			}
+	if !takeAction {
+		fmt.Printf("[skipping] \n")
+		return
+	}
+
+	if arguments["--enable"].(bool) {
+		commentOnPr(currentPr, actionTaken.Message)
+		switch actionTaken.Action {
+		case "close":
+			closePr(currentPr)
+		default:
 			fmt.Printf("[%s]\n", actionTaken.Action)
-		} else {
-			fmt.Printf("[%s 'DRY MODE']\n", actionTaken.Action)
 		}
 	} else {
-		fmt.Printf("[skipping] \n")
+		fmt.Printf("[%s 'DRY MODE']\n", actionTaken.Action)
 	}
+
 }
 
 func checkOpenPRs(ctx *context.Context, client *github.Client, owner string, repo string) {

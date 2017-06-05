@@ -23,7 +23,7 @@ func printError(msg string) {
 }
 
 func main() {
-	usage := `Usage: cibully [-c FILE] [-evhs]
+	usage := `Usage: ci-bully [-c FILE] [-evhs]
 Push for PRs to be merged or closed.
 
 Options:
