@@ -1,26 +1,14 @@
 package main
 
 import (
-	"fmt"
-	"os"
+	"github.com/ahelal/ci-bully/pkg/action"
+	"github.com/ahelal/ci-bully/pkg/config"
 
 	docopt "github.com/docopt/docopt-go"
 )
 
-var runConfig options
+var runConfig config.Config
 var arguments map[string]interface{}
-
-func checkError(msg string, e error) {
-	if e != nil {
-		fmt.Printf("%s. %s\n", msg, e.Error())
-		os.Exit(1)
-	}
-}
-
-func printError(msg string) {
-	fmt.Printf("%s\n", msg)
-	os.Exit(1)
-}
 
 func main() {
 	usage := `Usage: ci-bully [-c FILE] [-evhs]
@@ -32,6 +20,6 @@ Options:
   -h --help                         Show this screen.
   -v --version                      Show version.`
 	arguments, _ = docopt.Parse(usage, nil, true, "", false)
-	parseConfig(arguments["--config"].(string))
-	loopOverRepos()
+	config.ParseConfig(arguments["--config"].(string), &runConfig)
+	action.loopOverRepos(&runConfig)
 }

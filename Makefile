@@ -1,10 +1,13 @@
-PACKAGE = ci-bully
+PACKAGE = cibully
 IMPORT_PATH := github.com/ahelal/ci-bully
 DATE    ?= $(shell date +%FT%T%z)
 VERSION ?= $(shell cat $(CURDIR)/.VERSION 2> /dev/null || echo v0)
 
+
 GOLINT_COMMAND := $(shell command -v golint 2> /dev/null)
 M = $(shell printf "\033[34;1m▶\033[0m")
+
+include *.mk
 
 .PHONY: all deps test lint
 
