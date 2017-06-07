@@ -27,7 +27,7 @@ func actions(currentPr prType) {
 	var actionTaken action
 
 	for _, actionItem := range runConfig.Actions {
-		if currentPr.OpenSince >= actionItem.Day {
+		if currentPr.OpenSince == actionItem.Day {
 			actionTaken = actionItem
 			takeAction = true
 			break
