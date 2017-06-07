@@ -42,3 +42,7 @@ repos:
  - "ahelal/t-template"
  - "ahelal/ansible-concourse"
 ```
+
+## Running CI-bully
+
+CI bully does not keep state so it is important to run only once a day always at the same time, if you don't want to spam people.
