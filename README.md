@@ -3,7 +3,7 @@
 CI bully is a go program that will warn and close github PRs that are long living. You can define the actions in the configuration.
 Ideally we want to developers to avoid using long living branches.
 
-It is better to run PR bully from a CI daily as PR bully does not keep state.
+It is better to run PR bully from a CI daily. Keep in mind CI bully does not keep state or check if it posted before.
 
 ## Config
 ```yaml
@@ -46,3 +46,4 @@ repos:
 ## Running CI-bully
 
 CI bully does not keep state so it is important to run only once a day always at the same time, if you don't want to spam people.
+
