@@ -3,6 +3,7 @@
 #token: "XxxXXXXxxxx"
 actions:
   - day: 14
+    last: true
     action: close
     message: |
               Hi _USER_ this PR exceeded _SINCE_ days in open state.

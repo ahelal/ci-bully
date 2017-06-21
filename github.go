@@ -27,10 +27,15 @@ func actions(currentPr prType) {
 	var actionTaken action
 
 	for _, actionItem := range runConfig.Actions {
-		if currentPr.OpenSince == actionItem.Day {
+		switch {
+		case currentPr.OpenSince == actionItem.Day:
 			actionTaken = actionItem
 			takeAction = true
 			break
+		case currentPr.OpenSince > actionItem.Day && actionItem.Last:
+			// Last action
+			actionTaken = actionItem
+			takeAction = true
 		}
 	}
 	if !takeAction {

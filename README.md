@@ -10,8 +10,11 @@ It is better to run PR bully from a CI daily. Keep in mind CI bully does not kee
 ---
 ## Define the token in yaml or environment variable "GITHUB_TOKEN"
 #token: "XxxXXXXxxxx"
+
 actions:
+    # if you specify last anything greater than last will be enforced
   - day: 14
+    last: true
     action: close
     message: |
               Hi _USER_ this PR exceeded _SINCE_ days in open state.

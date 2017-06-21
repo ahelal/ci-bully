@@ -14,6 +14,7 @@ import (
 type action struct {
 	Day     int    `yaml:"day"`
 	Action  string `yaml:"action"`
+	Last    bool   `yaml:"last"`
 	Message string `yaml:"message"`
 }
 
