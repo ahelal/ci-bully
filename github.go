@@ -22,6 +22,10 @@ type prType struct {
 	GHpr      *github.PullRequest
 }
 
+const (
+	HOURSINADAY = 24.0
+)
+
 func actions(currentPr prType) {
 	var takeAction bool
 	var actionTaken action
@@ -65,19 +69,47 @@ func checkOpenPRs(ctx *context.Context, client *github.Client, owner string, rep
 	}
 
 	for _, openPullRequest := range openPullRequests {
-		duration := time.Since(*openPullRequest.CreatedAt)
 		currentPr := prType{
 			client:    client,
 			ctx:       ctx,
 			owner:     owner,
 			repo:      repo,
-			OpenSince: int(duration.Hours() / 24.0),
+			OpenSince: daysSincePRCreated(openPullRequest.CreatedAt),
 			GHpr:      openPullRequest,
 		}
 		fmt.Printf("Repo %s/%s/#%d user '%s' open since '%d' days : ", owner, repo, *openPullRequest.Number, *openPullRequest.User.Login, currentPr.OpenSince)
 		// take action if any
 		actions(currentPr)
 	}
+}
+
+func daysSincePRCreated(CreatedAt *time.Time) int {
+	duration := time.Since(*CreatedAt)
+	if !runConfig.OnlyWorkdays {
+		return int(duration.Hours() / HOURSINADAY)
+	}
+
+	return workdaysBetweenDates(*CreatedAt, time.Now())
+}
+
+// workdaysBetweenDates calculates the workdays between two dates.
+func workdaysBetweenDates(t1, t2 time.Time) int {
+	if t2.Before(t1) {
+		t1, t2 = t2, t1
+	}
+
+	days := 0
+	for {
+		if t1.After(t2) || t1.Equal(t2) {
+			return days
+		}
+		if t1.Weekday() != time.Saturday && t1.Weekday() != time.Sunday {
+			days++
+		}
+
+		t1 = t1.Add(time.Hour * HOURSINADAY)
+	}
+	return days
 }
 
 func loopOverRepos() {

@@ -1,6 +1,10 @@
 ---
 ## Define the token in yaml or environment variable "GITHUB_TOKEN"
 #token: "XxxXXXXxxxx"
+
+## Only count the workdays. Defaults to false
+#only_workdays: true
+
 actions:
   - day: 14
     last: true

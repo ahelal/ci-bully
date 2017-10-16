@@ -11,6 +11,9 @@ It is better to run PR bully from a CI daily. Keep in mind CI bully does not kee
 ## Define the token in yaml or environment variable "GITHUB_TOKEN"
 #token: "XxxXXXXxxxx"
 
+## Only count the workdays. Defaults to false
+#only_workdays: true 
+
 actions:
     # if you specify last anything greater than last will be enforced
   - day: 14
